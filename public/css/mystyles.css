@@ -1,0 +1,49 @@
+.page p {
+    margin: 0;
+    padding-bottom: .2em;
+}
+
+.display_stage {
+    background-color: black;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.display_stage_background {
+    background-color: #000000;
+}
+
+div.jspsych-survey-likert-preamble{
+    background-color: #000000;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.jspsych-display-element {
+    background-color: #000000;
+    color: #ffffff;
+    box-shadow: none;
+}
+label.jspsych-survey-likert-opt-label {
+    color: #dddddd;
+}
+
+
+label.jspsych-survey-likert-statement {
+    display: block;
+    font-size: 20px;
+    padding-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+ul.jspsych-survey-likert-opts {
+    list-style: none;
+    /*width: 500px;*/
+    margin: auto;
+    padding: 0 0 10px;
+    display: block;
+    font-size: 18px;
+    line-height: 1.1em;
+}

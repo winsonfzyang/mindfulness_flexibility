@@ -1,0 +1,23 @@
+/* Stroop/emoStroop */
+
+.cfat_instr {
+    font-size: 36px;
+}
+
+
+.center-fit {
+    width:70%;
+    height:auto;
+    overflow:hidden;
+    display:block;
+    margin: auto;
+}
+
+/* Response Guide */
+#container { width: 80%; margin: auto; background-color: black;}
+    .row { height: 150px;position: relative; }
+    .row div { height: 100%; }
+    .column-3 { width: 30%; }
+    .left { background-color: yellow; float: left; }
+    .center {text-align: center;}
+    .right { background-color: green; float: right; }

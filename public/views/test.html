@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>The Mindful Self Experiment</title>
+
+    <script src="../../js/jspsych.js"></script>
+    <script src="../../js/jquery.min.js"></script>
+
+    <script src="../../js/plugins/jspsych-call-function.js"></script>
+    <script src="../../js/plugins/jspsych-fullscreen.js"></script>
+
+    <script src="../../js/plugins/jspsych-instructions.js"></script>
+
+    <script src="../../js/plugins/jspsych-survey-html-form.js"></script>
+    <script src="../../js/plugins/jspsych-survey-text.js"></script>
+    <script src="../../js/plugins/jspsych-survey-likert.js"></script>
+
+    <script src="../../js/plugins/jspsych-html-button-response.js"></script>
+    <script src="../../js/plugins/jspsych-html-keyboard-response.js"></script>
+
+    <script src="../../js/plugins/jspsych-video-keyboard-response.js"></script>
+
+    <script src="../src/utils.js"></script>
+    <script src="../src/welcome/wmt_train_welcome.js"></script>
+    <script src="../src/exp/exp_wmt.js"></script>
+
+
+    <link rel="stylesheet" href="../css/jspsych.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/qstyles.css" type="text/css"/>
+
+</head>
+<body>
+<div id="welcome"></div>
+</body>
+<script>
+
+
+    function startExperiment() {
+
+        /* start the experiment */
+        jsPsych.init({
+            show_progress_bar: true,
+            on_interaction_data_update: function(data) {
+                var trial = jsPsych.currentTrial();
+                trial.data.screen_focus = data.event;
+            },
+
+            timeline: [
+               ...wmt_prac_block, ...wmt_exp_block
+                ],
+
+
+
+            on_finish: function() {
+                console.log("posting data")
+
+                FinishSave()
+
+                jsPsych.data.displayData()
+            }
+        });
+    }
+
+    startExperiment()
+
+</script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Experiment has ended!</title>
+
+    <script src="../../js/jspsych.js"></script>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/plugins/jspsych-html-keyboard-response.js"></script>
+
+    <link rel="stylesheet" href="../css/jspsych.css" type="text/css"/>
+    <link rel="stylesheet" href="../css/qstyles.css" type="text/css"/>
+
+</head>
+<body>
+</body>
+<script>
+
+    var end_exp = {
+        type: "html-keyboard-response",
+        stimulus: "The experiment has ended. You can close this screen now"
+    };
+
+
+    var timeline = [];
+    timeline.push(end_exp);
+
+    /* start the experiment */
+    jsPsych.init({
+        timeline: timeline
+    });
+
+</script>
+
+</html>
