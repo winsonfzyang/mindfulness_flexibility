@@ -10,35 +10,55 @@ var bottom_range = range(168, 250);
 var middle_range = range(108, 112); middle_range = arrayRemove(middle_range, 110);
 
 var cogswitch_stimuli = [1, 2, 3, 4, 6, 7, 8, 9];
-var combi_set_336 = [[3, 3, 6], [3, 6, 3], [6, 3, 3]];
-var combi_set_444 = [[4, 4, 4]];
-var combi_set_345 = [[3, 4, 5] , [3, 5, 4], [4, 3, 5], [4, 5, 3], [5, 3, 4], [5, 4, 3]];
-var combi_set = combi_set_336.concat(combi_set_444, combi_set_345);
+// var combi_set_234 = [[2, 4, 4],[4, 2, 4], [4, 4, 2], [3, 3, 4], [3, 4, 3], [4, 3, 3]];
+// var combi_set_345 = [[2, 3, 5], [2, 5, 3], [3, 2, 5], [3, 5, 2], [5, 2, 3], [5, 3, 2]];
+// var combi_set = combi_set_234.concat(combi_set_345);
+combi_set = Array(10).fill([[2, 2, 3], [2, 3, 2], [3, 2, 2]]).flat();
 
 var cogswitch_factors_follow = [{condition: 'follow', dot: 'none'}];
 var cogswitch_factors_crit = [
     {condition: 'distract', dot: 'top', button: 'f'},
-    {condition: 'switch', dot: 'bottom', button: 'f'},
-    {condition: 'ambiguous', dot: 'middle', button: 'f'},
     {condition: 'distract', dot: 'top', button: 'j'},
-    {condition: 'switch', dot: 'bottom', button: 'j'},
-    {condition: 'ambiguous', dot: 'middle', button: 'j'}
+    {condition: 'switch', dot: 'bottom', button: 'd'},
+    {condition: 'switch', dot: 'bottom', button: 'k'},
+    {condition: 'distract', dot: 'top', button: 'f'},
+    {condition: 'distract', dot: 'top', button: 'j'},
+    {condition: 'switch', dot: 'bottom', button: 'd'},
+    {condition: 'switch', dot: 'bottom', button: 'k'},
+    {condition: 'ambiguous', dot: 'middle', button: 'f'},
+    {condition: 'ambiguous', dot: 'middle', button: 'j'},
+    {condition: 'ambiguous', dot: 'middle', button: 'd'},
+    {condition: 'ambiguous', dot: 'middle', button: 'k'}
 ];
 
-var cogswitch_factors = {follow: jsPsych.randomization.repeat(cogswitch_factors_follow, 24), critical: cogswitch_factors_crit};
+var cogswitch_factors = {follow: jsPsych.randomization.repeat(cogswitch_factors_follow, cogswitch_factors_crit.length/PERCENTCRIT), critical: cogswitch_factors_crit};
 
 // Set instructions helpers
 let cogswitch_instructions = {};
 
-cogswitch_instructions.instructions =
+cogswitch_instructions.instructions_baseline =
     "<div class='switch_instr'>" +
     "<p>If the circle is on the top, do the odd/even task. Press <b style='color:#ff0000;'>'F'</b> if the number is an <b style='color:#ff0000;'>odd number</b>. " +
     "Press <b style='color:#0077ff;'>'J'</b> if the number is an <b style='color:#0077ff;'>even number</b>. </p>" +
-    "<p>If the circle is on the bottom, do the less/greater than 5 task. Press <b style='color:#ff0000;'>'F'</b> if the number is an <b style='color:#ff0000;'>less than 5</b>. " +
-    "Press <b style='color:#0077ff;'>'J'</b> if the number is an <b style='color:#0077ff;'>more than 5</b>. </p>" +
+    "</div>";
+
+cogswitch_instructions.instructions_switch =
+    "<div class='switch_instr'>" +
+    "<p>If the circle is on the bottom, do the less/greater than 5 task. Press <b style='color:#ff0000;'>'D'</b> if the number is an <b style='color:#ff0000;'>less than 5</b>. " +
+    "Press <b style='color:#0077ff;'>'K'</b> if the number is an <b style='color:#0077ff;'>more than 5</b>. </p>" +
+    "</div>";
+
+cogswitch_instructions.instructions_ambiguous =
+    "<div class='switch_instr'>" +
+    "<p>If the circle is in the middle, you can decide if you want to perform th top or bottom task. " +
+    "If you decide to perform the top task (odd/even), press <b style='color:#ff0000;'>'F'</b> if the number is <b style='color:#ff0000;'>odd</b> and " +
+    "press <b style='color:#0077ff;'>'J'</b> if the number is <b style='color:#0077ff;'>even</b>. </p>" +
+    "If you decide to perform the bottom task (less/greater than 5), press <b style='color:#ff0000;'>'D'</b> if the number is <b style='color:#ff0000;'>less than 5</b> and " +
+    "press <b style='color:#0077ff;'>'K'</b> if the number is <b style='color:#0077ff;'>more than 5</b>. </p>" +
     "<p>It is important that you respond as quickly and accurately as possible. </p>" +
     "<p>Press SPACEBAR to continue. </p>" +
     "</div>";
+
 
 cogswitch_instructions.endpractice =
     "<div class='switch_instr'>" +
@@ -49,10 +69,8 @@ cogswitch_instructions.endpractice =
 cogswitch_instructions.endtask =
     "<div class='switch_instr'>" +
     "<p class='continue_next'>Great job and thank you! You are now finished with this task." +
-    "<br>Press SPACEBAR to continue to the next task.</p>" +
+    "<br>Press SPACEBAR to continue.</p>" +
     "</div>";
-
-
 
 /* functions */
 function stim_variable_cogswitch(num1, num2, dotpos){
@@ -68,8 +86,8 @@ function stim_variable_cogswitch(num1, num2, dotpos){
 }
 function createstim_cogswitch(factors, TYPE) {
     let trials = [];
-    let NCRITTRIALS = factors.critical.length // should give 6
-    let TOTALN = NCRITTRIALS/PERCENTCRIT  // should give 30
+    let NCRITTRIALS = factors.critical.length // should give 12
+    let TOTALN = NCRITTRIALS/PERCENTCRIT  // should give 40
     let cogswitch_critical = factors.critical;
 
     let stim_combi_set = [];
@@ -77,17 +95,19 @@ function createstim_cogswitch(factors, TYPE) {
     // if TYPE === 'practice': 10 choose 1 combi
     if (TYPE === 'practice'){n_set_repeats = NCRITTRIALS/3*NPRACTTRIALS/TOTALN;}
     // if TYPE === 'exp': 10 choose 10 combi
-    if (TYPE === 'exp'){n_set_repeats = NCRITTRIALS/3*NEXPTRIALS/TOTALN;} // should give 10
+    if (TYPE === 'exp'){n_set_repeats = NCRITTRIALS/3*NEXPTRIALS/TOTALN;}
+    TOTAL_TRIALS = n_set_repeats*10
 
-    stim_combi_set = jsPsych.randomization.sampleWithoutReplacement(combi_set, n_set_repeats);
+    crit_reps = PERCENTCRIT*TOTAL_TRIALS/NCRITTRIALS;
+    combi_reps = Math.ceil((1-PERCENTCRIT)*TOTAL_TRIALS/10);
+    stim_combi_set = jsPsych.randomization.sampleWithoutReplacement(combi_set, combi_reps);
     stim_combi_set = stim_combi_set.flat();
-    stim_crit_set = jsPsych.randomization.repeat(cogswitch_critical, n_set_repeats);
+    stim_crit_set = jsPsych.randomization.repeat(cogswitch_critical, crit_reps);
     stim_crit_set = stim_crit_set.flat();
-
     // create combination sets
     let mycogswitchfactors = [];
 
-    for (var i = 0; i < stim_combi_set.length; ++i) {
+    for (i = 0; i < stim_combi_set.length; ++i) {
         let i_follow = jsPsych.randomization.repeat(cogswitch_factors_follow, stim_combi_set[i]);
         let i_crit = stim_crit_set[i];
         let i_cogswitchfactors = [...i_follow, i_crit];
@@ -104,7 +124,7 @@ function createstim_cogswitch(factors, TYPE) {
     let correct_response = '';
     let button = ''
     // Create trials
-    for (var i = 0; i < mycogswitchfactors.length; ++i) {
+    for (i = 0; i < mycogswitchfactors.length; ++i) {
 
         button = mycogswitchfactors[i].button;
         num1 = cogswitch_stim_set[i];
@@ -126,18 +146,22 @@ function createstim_cogswitch(factors, TYPE) {
 
         // if condition is switch
         if (mycogswitchfactors[i].condition === "switch") {
-            if (button === 'f') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4], 1);} // CORRECT RESPONSE IS <5, BOTTOM SHOULD BE >5
-            if (button === 'j') {num2 = jsPsych.randomization.sampleWithoutReplacement([6, 7, 8, 9], 1);} // CORRECT RESPONSE IS >5, BOTTOM SHOULD BE <5
+            if (button === 'd') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4], 1);} // CORRECT RESPONSE IS <5, BOTTOM SHOULD BE >5
+            if (button === 'k') {num2 = jsPsych.randomization.sampleWithoutReplacement([6, 7, 8, 9], 1);} // CORRECT RESPONSE IS >5, BOTTOM SHOULD BE <5
             dotpos = jsPsych.randomization.sampleWithoutReplacement(bottom_range, 1);
-            if (num2 > 5) {correct_response = 'j'} else {correct_response = 'f'}
+            if (num2 > 5) {correct_response = 'k'} else {correct_response = 'd'}
         }
 
         // if condition is ambiguous
         if (mycogswitchfactors[i].condition === "ambiguous") {
-            if (button === 'f') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4], 1);} // RANDOM
-            if (button === 'j') {num2 = jsPsych.randomization.sampleWithoutReplacement([6, 7, 8, 9], 1);} // RANDOM
+            if (button === 'f') {num2 = jsPsych.randomization.sampleWithoutReplacement([2, 4, 6, 8], 1);} // CORRECT RESPONSE IS ODD, BOTTOM SHOULD BE EVEN
+            if (button === 'j') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 3, 7, 9], 1);} // CORRECT RESPONSE IS EVEN, BOTTOM SHOULD BE ODD
+            if (button === 'd') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4], 1);} // CORRECT RESPONSE IS <5, BOTTOM SHOULD BE >5
+            if (button === 'k') {num2 = jsPsych.randomization.sampleWithoutReplacement([6, 7, 8, 9], 1);} // CORRECT RESPONSE IS >5, BOTTOM SHOULD BE <5
             dotpos = jsPsych.randomization.sampleWithoutReplacement(middle_range, 1);
-            correct_response = ''
+            if (num1 % 2 == 0) {correct_response1 = 'j'} else {correct_response1 = 'f'}
+            if (num2 > 5) {correct_response2 = 'k'} else {correct_response2 = 'd'}
+            correct_response = [correct_response1 , correct_response2];
         }
 
         // Create trial i
@@ -170,9 +194,6 @@ function createseq_cogswitch(factors, TYPE) {
             trialstimulus = jsPsych.timelineVariable('stimulus', true);
             data = jsPsych.timelineVariable('data', true);
 
-            console.log(data.condition)
-            console.log(data.correct_response)
-
             trial.stimulus = trialstimulus;
             trial.data = {
                 exp_id: data.exp_id,
@@ -185,15 +206,15 @@ function createseq_cogswitch(factors, TYPE) {
         },
         type: 'html-keyboard-response',
         stimulus: '',
-        choices: ['f', 'j'],
+        choices: ['f', 'j', 'd', 'k'],
         data: '',
         trial_duration: SWITCH_STIM_DURATION,
         response_ends_trial: true,
         post_trial_gap: SWITCH_POSTTRIAL_DURATION,
         on_finish: function (data) {
             keyconvert = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)
-            if (data.condition === 'ambiguous') {data.correct_response = keyconvert}
-            if (keyconvert===data.correct_response) {
+            // if (data.condition === 'ambiguous') {data.correct_response = keyconvert}
+            if (data.correct_response.indexOf(keyconvert) >= 0) {
                 data.accuracy = 1;
             } else {
                 data.accuracy = 0;
@@ -217,6 +238,7 @@ function createseq_cogswitch(factors, TYPE) {
 }
 
 /* Instructions */
+
 let cogswitch_instr = {
     type: 'instructions',
     data: {
@@ -225,7 +247,9 @@ let cogswitch_instr = {
     },
     pages: [
         // Page 1
-        cogswitch_instructions.instructions
+        cogswitch_instructions.instructions_baseline,
+        cogswitch_instructions.instructions_switch,
+        cogswitch_instructions.instructions_ambiguous,
     ],
     key_forward: 'SPACE',
     show_clickable_nav: true,
@@ -291,17 +315,17 @@ var feedback = {
 };
 
 // Create practice procedure
-var cogswitch_practice = [];
+var cogswitch_practice_block = [];
 var cogswitch_pract_procedure = createseq_cogswitch(cogswitch_factors, 'practice')
-cogswitch_practice.push(cogswitch_instr);
-cogswitch_practice.push(cogswitch_pract_procedure);
-cogswitch_practice.push(cogswitch_postpractice_instr);
+cogswitch_practice_block.push(cogswitch_instr);
+cogswitch_practice_block.push(cogswitch_pract_procedure);
+cogswitch_practice_block.push(cogswitch_postpractice_instr);
 
 // Create task block procedure
-var cogswitch_block = [];
+var cogswitch_exp_block = [];
 var cogswitch_procedure = createseq_cogswitch(cogswitch_factors, 'exp')
-cogswitch_block.push(cogswitch_instr);
-cogswitch_block.push(cogswitch_procedure);
-cogswitch_block.push(cogswitch_posttask_instr);
+cogswitch_exp_block.push(cogswitch_instr);
+cogswitch_exp_block.push(cogswitch_procedure);
+cogswitch_exp_block.push(cogswitch_posttask_instr);
 
 

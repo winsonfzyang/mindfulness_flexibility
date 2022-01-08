@@ -23,62 +23,24 @@ app.set('views', __dirname + '/public/views');
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-app.post('/test-save-data', function(request, response) {
-    console.log("Posting data")
-    // Convert to CSV
-    DATA_CSV = JSON2CSV(request.body);
-
-    // Get ID_DATE
-    rows = DATA_CSV.split('\n');
-    ID_DATE_index = rows[0].split(',').indexOf('"ID_DATE"');
-    ID_DATE = rows[1].split(',')[ID_DATE_index];
-    ID_DATE = ID_DATE.replace(/"/g, "");
-
-    filename = "wmt/" + ID_DATE + "_testsave.csv";
-    saveDropbox(DATA_CSV, filename);
-    response.end();
-});
-
-app.post('/wmt-testing-data', function(request, response) {
-    console.log("Posting data")
-    // Convert to CSV
-    DATA_CSV = JSON2CSV(request.body);
-
-    // Get ID_DATE
-    rows = DATA_CSV.split('\n');
-    ID_DATE_index = rows[0].split(',').indexOf('"ID_DATE"');
-    ID_DATE = rows[1].split(',')[ID_DATE_index];
-    ID_DATE = ID_DATE.replace(/"/g, "");
-
-    DAYNUMBER_index = rows[0].split(',').indexOf('"daynumber"');
-    DAYNUMBER = rows[1].split(',')[DAYNUMBER_index];
-    DAYNUMBER = DAYNUMBER.replace(/"/g, "");
-
-    filename = "wmt/" + ID_DATE + "_day_" + DAYNUMBER + ".csv";
-    saveDropbox(DATA_CSV, filename);
-    response.end();
-});
 
 app.post('/exp1-data', function(request, response) {
     console.log("Posting data")
     // Convert to CSV
     DATA_CSV = JSON2CSV(request.body);
-
     // Get ID_DATE
     rows = DATA_CSV.split('\n');
     ID_DATE_index = rows[0].split(',').indexOf('"ID_DATE"');
     ID_DATE = rows[1].split(',')[ID_DATE_index];
     ID_DATE = ID_DATE.replace(/"/g, "");
 
-    DAYNUMBER_index = rows[0].split(',').indexOf('"daynumber"');
-    DAYNUMBER = rows[1].split(',')[DAYNUMBER_index];
-    DAYNUMBER = DAYNUMBER.replace(/"/g, "");
+    EXP_ID_index = rows[0].split(',').indexOf('"exp_id"');
+    EXP_ID = rows[2].split(',')[EXP_ID_index];
+    EXP_ID = EXP_ID.replace(/"/g, "");
 
-    filename = "wmt/" + ID_DATE + "_day_" + DAYNUMBER + "_stroop.csv";
+    filename = "dissertation/" + ID_DATE + "_" + EXP_ID + ".csv";
     saveDropbox(DATA_CSV, filename);
     response.end();
-
-
 });
 
 // --- START THE SERVER

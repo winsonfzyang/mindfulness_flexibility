@@ -1,43 +1,86 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="icon"
-      type="image/png"
-      href="../img/logo.png">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mental flexibility & mindfunless</title>
-<link href="../css/simpleGridTemplate.css" rel="stylesheet" type="text/css">
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="icon"
+          type="image/png"
+          href="../img/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mental flexibility & mindfunless</title>
+    
+	<script src="../src/index_land.js"></script>
+	
+    <link href="../css/simpleGridTemplate.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="../css/index.css" type="text/css"/>
 </head>
-<body>
-<!-- Main Container -->
-<div class="container"> 
-  <!-- Header -->
-  <header class="header">
-    <h4 class="logo">Mental flexibility & Mindfulness</h4>
-  </header>
-  <!-- Hero Section -->
-  <section class="intro">
-    <div class="column">
-      <img src="../img/profile.png" alt="" class="profile"> </div>
-    <div class="column">
-      <p>This study is called "Improving mental flexibility through meta-awareness of mental states with meditation training".
-        The study will help us learn about mental states, mental flexibility, and mindfulness practices.
-        Here, you will complete some computerized tasks.</p>
-    </div>
-  </section>
-  <!-- Stats Gallery Section -->
-  <div class="gallery">
-    <div class="thumbnail"> <a href="experiment1"><img src="../img/experiment1.jpg" alt="" width="1000" class="cards"/></a>
-      <h4>Experiment tasks</h4>
-      <p class="tag">cognitive tasks</p>
-      <p class="text_column">Here, you will complete some tasks.</p>
-    </div>
-  </div>
-
-
-</div>
-<!-- Main Container Ends -->
-</body>
+	<body>
+		<!-- Main Container -->
+		<div class="container">
+			<!-- Header -->
+			<header class="header">
+				<h4 class="logo">Mental flexibility & Mindfulness</h4>
+			</header>
+			<!-- Hero Section -->
+			<section class="intro">
+				<div class="column">
+					<img src="../img/profile.png" alt="" class="profile"></div>
+				<div class="column">
+					<p>This study is called "Improving mental flexibility through meta-awareness of mental states with meditation training". The study will help us learn about mental states, mental flexibility, and mindfulness practices. Here, you will complete some computerized tasks.</p>
+				</div>
+			</section>
+			<!-- ID  Section -->
+			<p style="font-weight:bold; font-size:18px;">ID: <input id="partID" type="text"></p>
+			<!-- Stats Gallery Section -->
+			<!-- Practice Dropdown -->
+			<div class="dropdown">
+				<button onclick="PracticeDrop()" class="dropbtn">Practice tasks</button>
+				<div id="PracticeDropdown" class="dropdown-content">
+					<div class="gallery">
+						<div class="thumbnail">
+							<a href="practice_cogswitch" target="_blank" rel="noopener noreferrer">
+								<h4>Practice Task 1</h4>
+							</a>
+						</div>
+						<div class="thumbnail">
+							<a href="practice_affswitch" target="_blank" rel="noopener noreferrer">
+								<h4>Practice Task 2</h4>
+							</a>
+						</div>
+						<div class="thumbnail">
+							<a href="practice_primeaff" target="_blank" rel="noopener noreferrer">
+								<h4>Practice Task 3</h4>
+							</a>
+						</div>
+						<div class="thumbnail">
+							<a href="practice_mab" target="_blank" rel="noopener noreferrer">
+								<h4>Practice Task 4</h4>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Experiment Dropdown -->
+			<div class="dropdown">
+				<button onclick="ExpDrop()" class="dropbtn">Experimental tasks</button>
+				<div id="ExpDropdown" class="dropdown-content">
+					<div class="gallery">
+						<div class="thumbnail">
+							<button class="button-1" role="button" onclick="checkID_cogswitch()">Experiement Task 1</button>
+						</div>
+						<div class="thumbnail">
+							<button class="button-1" role="button" onclick="checkID_affswitch()">Experiement Task 2</button>
+						</div>
+						<div class="thumbnail">
+							<button class="button-1" role="button" onclick="checkID_primeaff()">Experiement Task 3</button>
+						</div>
+						<div class="thumbnail">
+							<button class="button-1" role="button" onclick="checkID_mab()">Experiement Task 4</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Main Container Ends -->
+	</body>
 </html>

@@ -36,10 +36,8 @@ affswitch_instructions.endpractice =
 affswitch_instructions.endtask =
     "<div class='switch_instr'>" +
     "<p class='continue_next'>Great job and thank you! You are now finished with this task." +
-    "<br>Press SPACEBAR to continue to the next task.</p>" +
+    "<br>Press SPACEBAR to continue.</p>" +
     "</div>";
-
-
 
 /* functions */
 function stim_variable_aff(pic1, pic2){
@@ -50,7 +48,7 @@ function stim_variable_aff(pic1, pic2){
     if(pic1 === ''){pic1_path = '../img/black_stim.JPG'}
     if(pic2 === ''){pic2_path = '../img/black_stim.JPG'}
 
-    let stim = '\n' +
+    stim = '\n' +
         '<div class="outer-container">' +
         '   <img class="affstim" src=' + pic1_path + '>' +
         '   <div class="middle_fix">' + AFF_SWITCH_FIX + '</div>' +
@@ -70,17 +68,16 @@ function create_combiset(uniq_comb, N_SWITCHES) {
 
     let index_start = [];
     let index_end = [];
-
-    for (var i = 0; i < indices.length-1; ++i) {
+    for (let i = 0; i < indices.length-1; ++i) {
         index_start = indices[i]+1; // start
         index_end = indices[i+1]; // end
         arrays[i] = uniq_comb.slice(index_start, index_end);
     }
     let arrays_new = []
     let counter = 0
-    for (var i = 0; i < arrays.length; ++i) {
-        if (arrays[i].length === N_SWITCHES+1) {
-            arrays_new[counter] = jsPsych.randomization.shuffle(arrays[i]);
+    for (i = 0; i < arrays.length; ++i) {
+        if (arrays[i][0].length === N_SWITCHES+1) { // ERROR HERE
+            arrays_new[counter] = jsPsych.randomization.shuffle(arrays[i][0]);
             counter += 1;
         }
     }
@@ -89,8 +86,9 @@ function create_combiset(uniq_comb, N_SWITCHES) {
 }
 
 function trial_distribute(trials, condition){
-    let n_repeats = ~~(sumArray(trials)/4);
-    let n_to_add = sumArray(trials) % 4;
+    let n_repeats = ~~(trials.reduce((a, b) => a + b, 0)/4);
+    let n_to_add = trials.reduce((a, b) => a + b, 0) % 4;
+
     let stim_set = [Array(n_repeats).fill(aff_factors).flat(), jsPsych.randomization.sampleWithoutReplacement(aff_factors, n_to_add)];
     stim_set = stim_set.flat();
     stim_set = jsPsych.randomization.shuffle(stim_set);
@@ -112,36 +110,39 @@ function trial_distribute(trials, condition){
 
 function createstim_aff(factors, TYPE) {
     let trials = [];
-    let N_SWITCHES = []
-    let sets = NPRACTTRIALS_AFF*PERCENTCRIT;
+    let N_SWITCHES = [];
+    let sets = [];
 
     // if TYPE === 'practice': 40 trials for practice
     if (TYPE === 'practice'){
+        sets = NPRACTTRIALS_AFF*PERCENTCRIT;
         n_set_repeats = NPRACTTRIALS_AFF/factors.length;
         N_SWITCHES = NPRACTTRIALS_AFF*PERCENTCRIT;
     }
     // if TYPE === 'exp': 240 trials
     if (TYPE === 'exp'){
+        sets = NEXPTRIALS_AFF*PERCENTCRIT;
         n_set_repeats = NEXPTRIALS_AFF/factors.length;
         N_SWITCHES = NEXPTRIALS_AFF*PERCENTCRIT;
     }
 
     // create combination sets
     uniq_comb = [];
-    Combination(Array(Math.ceil(NPRACTTRIALS_AFF/3)).fill(n_follow_trials).flat(), NPRACTTRIALS_AFF)
+    if (TYPE === 'practice'){uniq_comb = combinationSum(n_follow_trials, NPRACTTRIALS_AFF)}
+    if (TYPE === 'exp'){uniq_comb = combinationSum(n_follow_trials, NEXPTRIALS_AFF)}
     uniq_comb = ['break'].concat(uniq_comb)
+
+
     let arrays_new = create_combiset(uniq_comb, sets)
+    if (TYPE === 'exp'){arrays_new = Array(6).fill(arrays_new).flat()}
     arrays_new = jsPsych.randomization.sampleWithoutReplacement(arrays_new, N_SWITCHES/sets)
-
     // create stimuli set
-    let n_reps = N_SWITCHES/affswitch_factors.length;
-
-    let affswitch_stim_set = [Array(n_reps).fill(affswitch_factors).flat(), affswitch_factors[0]];
-    affswitch_stim_set = affswitch_stim_set.flat();
+    // let n_reps = N_SWITCHES/affswitch_factors.length;
+    // let affswitch_stim_set = [Array(n_reps).fill(affswitch_factors).flat(), affswitch_factors[0]];
+    // affswitch_stim_set = affswitch_stim_set.flat();
 
     let participant_arrays_new = arrays_new.flat();
-
-    // TODO: correct the arrays
+    participant_arrays_new = jsPsych.randomization.shuffle(participant_arrays_new);
 
     // Create equal distribution of trials
     let gender_trials = participant_arrays_new.filter(function(element, index, array) {
@@ -151,14 +152,12 @@ function createstim_aff(factors, TYPE) {
         return (index % 2 === 1);
     });
 
-
-
    let gender_dist_trials = trial_distribute(gender_trials,'gender');
    let affect_dist_trials = trial_distribute(affect_trials, 'affect');
 
    let complete_arr = [];
 
-   for (var i = 0; i < affect_dist_trials.length; ++i){
+   for (i = 0; i < affect_dist_trials.length; ++i){
        complete_arr.push(gender_dist_trials[i]);
        complete_arr.push(affect_dist_trials[i]);
        if (i === affect_dist_trials.length-1){
@@ -206,11 +205,9 @@ function createstim_aff(factors, TYPE) {
                 trial_id: 'stimulus',
                 correct_response: correct_response,
             },
-            // trial_duration: SWITCH_STIM_DURATION, // milliseconds
+            trial_duration: SWITCH_STIM_DURATION, // milliseconds
         }
     }
-    // console.log(trials)
-
 
     return trials
 }
@@ -223,8 +220,8 @@ function createseq_aff(factors, TYPE) {
         on_start: function (trial) {
             // add phase=practice or trial
             trialstimulus = jsPsych.timelineVariable('stimulus', true);
+            trial_duration = jsPsych.timelineVariable('trial_duration', true);
             data = jsPsych.timelineVariable('data', true);
-
             trial.stimulus = trialstimulus;
             trial.data = {
                 exp_id: data.exp_id,
@@ -234,13 +231,12 @@ function createseq_aff(factors, TYPE) {
                 stimulus: trialstimulus,
                 correct_response: data.correct_response,
             };
-            // trial.trial_duration = trial.trial_duration
+            trial.trial_duration = trial_duration
         },
         type: 'html-keyboard-response',
         stimulus: '',
         choices: ['f', 'j'],
         data: '',
-        // trial_duration: SWITCH_STIM_DURATION,
         response_ends_trial: true,
         post_trial_gap: SWITCH_POSTTRIAL_DURATION,
         on_finish: function (data) {
@@ -255,7 +251,7 @@ function createseq_aff(factors, TYPE) {
     }
 
     // If TYPE is practice
-    if (TYPE === 'practice') {seq_timeline = [affswitch_fixation, affswitch_trial, feedback];}
+    if (TYPE === 'practice') {seq_timeline = [affswitch_fixation, affswitch_trial, affswitch_feedback];}
 
     // If TYPE is exp
     if (TYPE === 'exp') {seq_timeline = [affswitch_fixation, affswitch_trial];}
@@ -325,7 +321,7 @@ var affswitch_fixation = {
     trial_duration: SWITCH_FIXATION_DURATION, // milliseconds
 };
 /* feedback */
-var feedback = {
+var affswitch_feedback = {
     type: 'html-keyboard-response',
     data: {
         exp_id: "affswitch",
@@ -344,17 +340,17 @@ var feedback = {
 };
 
 // Create practice procedure
-var affswitch_practice = [];
+var affswitch_practice_block = [];
 var affswitch_pract_procedure = createseq_aff(affswitch_factors, 'practice')
-affswitch_practice.push(affswitch_instr);
-affswitch_practice.push(affswitch_pract_procedure);
-affswitch_practice.push(affswitch_postpractice_instr);
+affswitch_practice_block.push(affswitch_instr);
+affswitch_practice_block.push(affswitch_pract_procedure);
+affswitch_practice_block.push(affswitch_postpractice_instr);
 
 // Create task block procedure
-var affswitch_block = [];
+var affswitch_exp_block = [];
 var affswitch_procedure = createseq_aff(affswitch_factors, 'exp')
-affswitch_block.push(affswitch_instr);
-affswitch_block.push(affswitch_procedure);
-affswitch_block.push(affswitch_posttask_instr);
+affswitch_exp_block.push(affswitch_instr);
+affswitch_exp_block.push(affswitch_procedure);
+affswitch_exp_block.push(affswitch_posttask_instr);
 
 

@@ -95,3 +95,46 @@
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+
+/* Affective Stroop */
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+/* Centered text */
+.centered {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+}
+/* Meta-awareness of bias */
+* {
+    box-sizing: border-box;
+}
+
+.column1 {
+    float: left;
+    width: 40%;
+    padding: 15px;
+}
+.column2 {
+    float: left;
+    width: 20%;
+    padding: 5px;
+}
+.column3 {
+    float: left;
+    width: 40%;
+    padding: 15px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
