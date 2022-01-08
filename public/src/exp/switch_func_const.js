@@ -1,11 +1,11 @@
 // SWITCHING CONSTANTS
-const SWITCH_FIXATION_DURATION = 300; // 500
+const SWITCH_FIXATION_DURATION = 500; // 500
 const SWITCH_STIM_DURATION = 2000; // 2000
 const SWITCH_POSTTRIAL_DURATION = 500; // 500
 const SWITCH_FDBCK_DURATION = 1000; // 1000
 const PERCENTCRIT = 0.30; // 30%
 const NPRACTTRIALS = 40; // 40 trials
-const NEXPTRIALS = 12; // 240 trials
+const NEXPTRIALS = 240; // 240 trials
 const SWITCH_FIXATION = "<div style='font-size: 72px'>+</div>";
 const AFF_SWITCH_FIX = "<div class='aff_fix'>+</div>";
 
