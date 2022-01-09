@@ -45,8 +45,8 @@ function stim_variable_aff(pic1, pic2){
     pic1_path = '../img/affswitch/' + pic1
     pic2_path = '../img/affswitch/' + pic2
 
-    if(pic1 === ''){pic1_path = '../img/black_stim.JPG'}
-    if(pic2 === ''){pic2_path = '../img/black_stim.JPG'}
+    if(pic1 === ''){pic1_path = '../img/black_stim.jpg'}
+    if(pic2 === ''){pic2_path = '../img/black_stim.jpg'}
 
     stim = '\n' +
         '<div class="outer-container">' +

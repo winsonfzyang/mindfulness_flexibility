@@ -40,7 +40,7 @@ var welcome_screen = {
     on_start: function(trial){
         jsPsych.data.addProperties({  // record the condition assignment in the jsPsych data
             ID: window.opener.partID,
-            DATE: window.opener.MYDATE,
+            DATE: window.opener.DATE,
             ID_DATE: window.opener.ID_DATE,
         })
     },
