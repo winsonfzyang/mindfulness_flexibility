@@ -56,6 +56,19 @@ var welcome_screen = {
 welcome_block = [];
 welcome_block.push(welcome_screen);
 
+var welcome_screen_practice = {
+    type: "html-button-response",
+    data: {
+        exp_id: "affswitch",
+        trial_id: "welcome",
+    },
+    choices: ['Click here to continue'],
+    on_trial_start: function() { setTimeout(function() {setDisplay("jspsych-btn","")}, 1000)},
+    stimulus: "Welcome to the experiment.",
+};
+welcome_block_practice = [];
+welcome_block_practice.push(welcome_screen_practice);
+
 var closing_screen = {
     type: "html-button-response",
     data: {
@@ -106,7 +119,7 @@ function affswitch_practice() {
     jsPsych.init({
         show_progress_bar: false,
         timeline: [
-            ...welcome_block,
+            ...welcome_block_practice,
             ...affswitch_practice_block,
             ...closing_block
         ],
