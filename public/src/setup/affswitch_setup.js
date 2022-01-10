@@ -64,7 +64,6 @@ var welcome_screen = {
     stimulus: "Welcome to the experiment.",
 };
 welcome_block = [];
-welcome_block.push(preload);
 welcome_block.push(welcome_screen);
 
 var welcome_screen_practice = {
@@ -78,7 +77,6 @@ var welcome_screen_practice = {
     stimulus: "Welcome to the experiment.",
 };
 welcome_block_practice = [];
-welcome_block_practice.push(preload);
 welcome_block_practice.push(welcome_screen_practice);
 
 var closing_screen = {
@@ -102,6 +100,11 @@ closing_block.push(closing_screen);
 function start_affswitch() {
     /* start the experiment */
     jsPsych.init({
+        preload_images: [stim_female_an.map(i => '../img/affswitch/' + i),
+                        stim_female_ha.map(i => '../img/affswitch/' + i),
+                        stim_male_an.map(i => '../img/affswitch/' + i),
+                        stim_male_ha.map(i => '../img/affswitch/' + i)],
+        auto_preload: true,
         show_progress_bar: false,
         on_interaction_data_update: function(data) {
             trial = jsPsych.currentTrial();
