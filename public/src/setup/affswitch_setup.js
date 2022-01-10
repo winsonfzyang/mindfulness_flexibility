@@ -36,6 +36,16 @@ function finish_affswitch_save() {
 }
 
 // define welcome message trial
+var preload = {
+    type: jsPsychPreload,
+    images: [
+        stim_female_an.map(i => '../img/affswitch/' + i),
+        stim_female_ha.map(i => '../img/affswitch/' + i),
+        stim_male_an.map(i => '../img/affswitch/' + i),
+        stim_male_ha.map(i => '../img/affswitch/' + i)],
+    auto_preload: true
+}
+
 var welcome_screen = {
     on_start: function(trial){
         jsPsych.data.addProperties({  // record the condition assignment in the jsPsych data
@@ -54,6 +64,7 @@ var welcome_screen = {
     stimulus: "Welcome to the experiment.",
 };
 welcome_block = [];
+welcome_block.push(preload);
 welcome_block.push(welcome_screen);
 
 var welcome_screen_practice = {
@@ -67,6 +78,7 @@ var welcome_screen_practice = {
     stimulus: "Welcome to the experiment.",
 };
 welcome_block_practice = [];
+welcome_block_practice.push(preload);
 welcome_block_practice.push(welcome_screen_practice);
 
 var closing_screen = {

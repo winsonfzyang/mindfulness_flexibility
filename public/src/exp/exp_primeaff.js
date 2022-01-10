@@ -3,15 +3,15 @@
 /* ************************************ */
 
 // TODO: instructions
-
+const PRIMEAFF_CHOICES = ['g', 'h'];
 
 // Set instructions helpers
 let primeaff_ = {};
 
 primeaff_.instructions =
     "<div class='switch_instr'>" +
-    "<p>Press <b style='color:#ff0000;'>'F'</b> if the presented face is <b style='color:#ff0000;'>angry</b>. </p>" +
-    "<p>Press <b style='color:#0077ff;'>'J'</b> if the presented face is <b style='color:#0077ff;'>happy</b>. </p>" +
+    "<p>Press <b style='color:#ff0000;'>'G'</b> if the presented face is an <b style='color:#ff0000;'>angry</b> face. </p>" +
+    "<p>Press <b style='color:#0077ff;'>'H'</b> if the presented face is a <b style='color:#0077ff;'>happy</b> face. </p>" +
     "<p>It is important that you respond as quickly and accurately as possible. </p>" +
     "<p>Press SPACEBAR to continue. </p>" +
     "</div>";
@@ -51,8 +51,8 @@ function stim_variable_aff(pic, type, word){
 }
 
 function primefactors(emostim, emotion, word, congruency, sex, reps) {
-    if (emotion === 'angry') {correct_response = 'f'}
-    if (emotion === 'happy') {correct_response = 'j'}
+    if (emotion === 'angry') {correct_response = 'g'}
+    if (emotion === 'happy') {correct_response = 'h'}
     factors = {
         pic: emostim,
         emotion: [emotion],
@@ -174,7 +174,7 @@ function createseq_prime(TYPE) {
         },
         type: 'html-keyboard-response',
         stimulus: '',
-        choices: ['f', 'j'],
+        choices: PRIMEAFF_CHOICES,
         data: '',
         // trial_duration: SWITCH_STIM_DURATION,
         response_ends_trial: true,
