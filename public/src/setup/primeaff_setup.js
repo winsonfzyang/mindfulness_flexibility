@@ -36,6 +36,12 @@ function finish_primeaff_save() {
 }
 
 // define welcome message trial
+let preload_images = [
+    stim_female_an.map(i => '../img/affswitch/' + i),
+    stim_female_ha.map(i => '../img/affswitch/' + i),
+    stim_male_an.map(i => '../img/affswitch/' + i),
+    stim_male_ha.map(i => '../img/affswitch/' + i)];
+
 var welcome_screen = {
     on_start: function(trial){
         jsPsych.data.addProperties({  // record the condition assignment in the jsPsych data
@@ -90,6 +96,8 @@ closing_block.push(closing_screen);
 function start_primeaff() {
     /* start the experiment */
     jsPsych.init({
+        preload_images: preload_images,
+        auto_preload: true,
         show_progress_bar: false,
         on_interaction_data_update: function(data) {
             trial = jsPsych.currentTrial();
@@ -117,6 +125,8 @@ function start_primeaff() {
 function primeaff_practice() {
     /* start the experiment */
     jsPsych.init({
+        preload_images: preload_images,
+        auto_preload: true,
         show_progress_bar: false,
         timeline: [
             ...welcome_block_practice,

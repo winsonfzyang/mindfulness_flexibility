@@ -10,6 +10,8 @@ var affswitch_factors = [
     {condition: 'emotion'},
 ];
 
+const AFFSWITCH_CHOICES = ['g', 'h', 'b', 'n'];
+
 aff_factors = [MAN, FAN, MHA, FHA];
 
 // Set instructions helpers
@@ -18,11 +20,11 @@ let affswitch_instructions = {};
 affswitch_instructions.instructions =
     "<div class='switch_instr'>" +
     "<p>If the picture is on the top, do the female/male discrimination task. " +
-    "Press <b style='color:#ff0000;'>'F'</b> if the presented face is <b style='color:#ff0000;'>female</b>. " +
-    "Press <b style='color:#0077ff;'>'J'</b> if the presented face is <b style='color:#0077ff;'>male</b>. </p>" +
+    "Press <b style='color:#ff0000;'>'G'</b> if the presented face is <b style='color:#ff0000;'>female</b>. " +
+    "Press <b style='color:#0077ff;'>'H'</b> if the presented face is <b style='color:#0077ff;'>male</b>. </p>" +
     "<p>If the picture is on the bottom, do the angry/happy discrimination task. " +
-    "Press <b style='color:#ff0000;'>'F'</b> if the presented face is <b style='color:#ff0000;'>happy</b>. " +
-    "Press <b style='color:#0077ff;'>'J'</b> if the presented face is <b style='color:#0077ff;'>angry</b>. </p>" +
+    "Press <b style='color:#ff0000;'>'B'</b> if the presented face is <b style='color:#ff0000;'>happy</b>. " +
+    "Press <b style='color:#0077ff;'>'N'</b> if the presented face is <b style='color:#0077ff;'>angry</b>. </p>" +
     "<p>It is important that you respond as quickly and accurately as possible. </p>" +
     "<p>Press SPACEBAR to continue. </p>" +
     "</div>";
@@ -179,8 +181,8 @@ function createstim_aff(factors, TYPE) {
 
         // if condition is gender
         if (complete_arr[i].condition === 'gender') {
-            if (complete_arr[i].gender === 'F') {correct_response ='f'}
-            if (complete_arr[i].gender === 'M') {correct_response ='j'}
+            if (complete_arr[i].gender === 'F') {correct_response ='g'}
+            if (complete_arr[i].gender === 'M') {correct_response ='h'}
 
             pic1 = jsPsych.randomization.sampleWithoutReplacement(stim_group, 1); // Stimuli picture
             pic2 = '';
@@ -188,8 +190,8 @@ function createstim_aff(factors, TYPE) {
 
         // if condition is affect
         if (complete_arr[i].condition === "affect") {
-            if (complete_arr[i].emotion === 'happy') {correct_response ='f'}
-            if (complete_arr[i].emotion === 'angry') {correct_response ='j'}
+            if (complete_arr[i].emotion === 'happy') {correct_response ='b'}
+            if (complete_arr[i].emotion === 'angry') {correct_response ='n'}
 
             pic1 = ''
             pic2 =  jsPsych.randomization.sampleWithoutReplacement(stim_group, 1); // Stimuli picture
@@ -235,7 +237,7 @@ function createseq_aff(factors, TYPE) {
         },
         type: 'html-keyboard-response',
         stimulus: '',
-        choices: ['f', 'j'],
+        choices: AFFSWITCH_CHOICES,
         data: '',
         response_ends_trial: true,
         post_trial_gap: SWITCH_POSTTRIAL_DURATION,
