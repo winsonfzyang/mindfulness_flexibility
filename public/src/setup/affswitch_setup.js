@@ -37,7 +37,7 @@ function finish_affswitch_save() {
 
 // define welcome message trial
 var preload = {
-    type: jsPsychPreload,
+    type: "preload",
     images: [
         stim_female_an.map(i => '../img/affswitch/' + i),
         stim_female_ha.map(i => '../img/affswitch/' + i),
