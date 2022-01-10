@@ -36,15 +36,11 @@ function finish_affswitch_save() {
 }
 
 // define welcome message trial
-var preload = {
-    type: "preload",
-    images: [
-        stim_female_an.map(i => '../img/affswitch/' + i),
-        stim_female_ha.map(i => '../img/affswitch/' + i),
-        stim_male_an.map(i => '../img/affswitch/' + i),
-        stim_male_ha.map(i => '../img/affswitch/' + i)],
-    auto_preload: true
-}
+let preload_images = [
+    stim_female_an.map(i => '../img/affswitch/' + i),
+    stim_female_ha.map(i => '../img/affswitch/' + i),
+    stim_male_an.map(i => '../img/affswitch/' + i),
+    stim_male_ha.map(i => '../img/affswitch/' + i)];
 
 var welcome_screen = {
     on_start: function(trial){
@@ -100,10 +96,7 @@ closing_block.push(closing_screen);
 function start_affswitch() {
     /* start the experiment */
     jsPsych.init({
-        preload_images: [stim_female_an.map(i => '../img/affswitch/' + i),
-                        stim_female_ha.map(i => '../img/affswitch/' + i),
-                        stim_male_an.map(i => '../img/affswitch/' + i),
-                        stim_male_ha.map(i => '../img/affswitch/' + i)],
+        preload_images: preload_images,
         auto_preload: true,
         show_progress_bar: false,
         on_interaction_data_update: function(data) {
@@ -132,6 +125,8 @@ function start_affswitch() {
 function affswitch_practice() {
     /* start the experiment */
     jsPsych.init({
+        preload_images: preload_images,
+        auto_preload: true,
         show_progress_bar: false,
         timeline: [
             ...welcome_block_practice,
