@@ -220,8 +220,8 @@ function createseq_mab(TYPE) {
             // add phase=practice or trial
 
             let data = jsPsych.timelineVariable('data', true);
-            if (data.probe_loc === 'left'){pic1 = "../img/mab/probe.jpg"; pic2 = "../img/MAB/mab_black.jpg";}
-            if (data.probe_loc === 'right'){pic1 = "../img/mab/mab_black.jpg"; pic2 = "../img/MAB/probe.jpg";}
+            if (data.probe_loc === 'left'){pic1 = "../img/MAB/probe.jpg"; pic2 = "../img/MAB/mab_black.jpg";}
+            if (data.probe_loc === 'right'){pic1 = "../img/MAB/mab_black.jpg"; pic2 = "../img/MAB/probe.jpg";}
             trial.stimulus = probe_variable_mab(pic1, pic2);
             trial.data = {
                 exp_id: data.exp_id,

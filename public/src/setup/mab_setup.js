@@ -36,6 +36,13 @@ function finish_mab_save() {
 }
 
 // define welcome message trial
+let preload_images = [
+    mab_negative_stim.map(i => '../img/MAB/negative/' + i),
+    mab_neutral_stim.map(i => '../img/MAB/neutral/' + i),
+    "../img/MAB/mab_black.jpg",
+    "../img/MAB/mab_black.jpg",
+];
+
 var welcome_screen = {
     on_start: function(trial){
         jsPsych.data.addProperties({  // record the condition assignment in the jsPsych data
@@ -90,6 +97,8 @@ closing_block.push(closing_screen);
 function start_mab() {
     /* start the experiment */
     jsPsych.init({
+        preload_images: preload_images,
+        auto_preload: true,
         show_progress_bar: false,
         on_interaction_data_update: function(data) {
             trial = jsPsych.currentTrial();
@@ -117,6 +126,8 @@ function start_mab() {
 function mab_practice() {
     /* start the experiment */
     jsPsych.init({
+        preload_images: preload_images,
+        auto_preload: true,
         show_progress_bar: false,
         timeline: [
             ...welcome_block_practice,
