@@ -131,8 +131,7 @@ function mab_practice() {
         show_progress_bar: false,
         timeline: [
             ...welcome_block_practice,
-            ...mab_practice_block,
-            ...closing_block,
+            ...mab_practice_block
         ],
     });
 }

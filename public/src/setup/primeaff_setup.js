@@ -130,8 +130,7 @@ function primeaff_practice() {
         show_progress_bar: false,
         timeline: [
             ...welcome_block_practice,
-            ...primeaff_practice_block,
-            ...closing_block
+            ...primeaff_practice_block
         ],
     });
 }

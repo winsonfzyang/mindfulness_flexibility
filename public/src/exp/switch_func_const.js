@@ -4,13 +4,13 @@ const SWITCH_STIM_DURATION = 2000; // 2000
 const SWITCH_POSTTRIAL_DURATION = 500; // 500
 const SWITCH_FDBCK_DURATION = 1000; // 1000
 const PERCENTCRIT = 0.30; // 30%
-const NPRACTTRIALS = 40; // 40 trials
+const NPRACTTRIALS = 20; // 40 trials
 const NEXPTRIALS = 240; // 240 trials
 const SWITCH_FIXATION = "<div style='font-size: 72px'>+</div>";
 const AFF_SWITCH_FIX = "<div class='aff_fix'>+</div>";
 
 // AFFECTIVE FLEXIBILITY
-const NPRACTTRIALS_AFF = 40; // 40 trials
+const NPRACTTRIALS_AFF = 20; // 40 trials
 const NEXPTRIALS_AFF = 240; // 240 trials
 
 // PRIME AFFECTIVE STROOP

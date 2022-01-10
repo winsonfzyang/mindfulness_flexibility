@@ -130,8 +130,7 @@ function affswitch_practice() {
         show_progress_bar: false,
         timeline: [
             ...welcome_block_practice,
-            ...affswitch_practice_block,
-            ...closing_block
+            ...affswitch_practice_block
         ],
     });
 }

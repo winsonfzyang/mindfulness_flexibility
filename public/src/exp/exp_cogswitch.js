@@ -63,7 +63,7 @@ cogswitch_instructions.instructions_ambiguous =
 cogswitch_instructions.endpractice =
     "<div class='switch_instr'>" +
     "<p class='continue_next'>Great job and thank you! You are now finished with this practice." +
-    "<br>Press SPACEBAR to continue to the next practice.</p>" +
+    "<br>Press SPACEBAR to continue.</p>" +
     "</div>";
 
 cogswitch_instructions.endtask =

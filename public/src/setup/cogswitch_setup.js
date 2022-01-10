@@ -120,8 +120,7 @@ function cogswitch_practice() {
         show_progress_bar: false,
         timeline: [
             ...welcome_block_practice,
-            ...cogswitch_practice_block,
-            ...closing_block,
+            ...cogswitch_practice_block
         ],
     });
 }
