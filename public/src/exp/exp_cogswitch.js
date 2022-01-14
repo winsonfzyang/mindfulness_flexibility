@@ -38,23 +38,23 @@ let cogswitch_instructions = {};
 
 cogswitch_instructions.instructions_baseline =
     "<div class='switch_instr'>" +
-    "<p>If the circle is on the top, do the odd/even task. Press <b style='color:#ff0000;'>'F'</b> if the number is an <b style='color:#ff0000;'>odd number</b>. " +
-    "Press <b style='color:#0077ff;'>'J'</b> if the number is an <b style='color:#0077ff;'>even number</b>. </p>" +
+    "<p>If the circle is on the top, do the odd/even task. Press <b style='color:#ff0000;'>'G'</b> if the number is an <b style='color:#ff0000;'>odd number</b>. " +
+    "Press <b style='color:#0077ff;'>'H'</b> if the number is an <b style='color:#0077ff;'>even number</b>. </p>" +
     "</div>";
 
 cogswitch_instructions.instructions_switch =
     "<div class='switch_instr'>" +
-    "<p>If the circle is on the bottom, do the less/greater than 5 task. Press <b style='color:#ff0000;'>'D'</b> if the number is an <b style='color:#ff0000;'>less than 5</b>. " +
-    "Press <b style='color:#0077ff;'>'K'</b> if the number is an <b style='color:#0077ff;'>more than 5</b>. </p>" +
+    "<p>If the circle is on the bottom, do the less/greater than 5 task. Press <b style='color:#ff0000;'>'B'</b> if the number is an <b style='color:#ff0000;'>less than 5</b>. " +
+    "Press <b style='color:#0077ff;'>'N'</b> if the number is an <b style='color:#0077ff;'>more than 5</b>. </p>" +
     "</div>";
 
 cogswitch_instructions.instructions_ambiguous =
     "<div class='switch_instr'>" +
     "<p>If the circle is in the middle, you can decide if you want to perform th top or bottom task. " +
-    "If you decide to perform the top task (odd/even), press <b style='color:#ff0000;'>'F'</b> if the number is <b style='color:#ff0000;'>odd</b> and " +
-    "press <b style='color:#0077ff;'>'J'</b> if the number is <b style='color:#0077ff;'>even</b>. </p>" +
-    "If you decide to perform the bottom task (less/greater than 5), press <b style='color:#ff0000;'>'D'</b> if the number is <b style='color:#ff0000;'>less than 5</b> and " +
-    "press <b style='color:#0077ff;'>'K'</b> if the number is <b style='color:#0077ff;'>more than 5</b>. </p>" +
+    "If you decide to perform the top task (odd/even), press <b style='color:#ff0000;'>'G'</b> if the number is <b style='color:#ff0000;'>odd</b> and " +
+    "press <b style='color:#0077ff;'>'H'</b> if the number is <b style='color:#0077ff;'>even</b>. </p>" +
+    "If you decide to perform the bottom task (less/greater than 5), press <b style='color:#ff0000;'>'B'</b> if the number is <b style='color:#ff0000;'>less than 5</b> and " +
+    "press <b style='color:#0077ff;'>'N'</b> if the number is <b style='color:#0077ff;'>more than 5</b>. </p>" +
     "<p>It is important that you respond as quickly and accurately as possible. </p>" +
     "<p>Press SPACEBAR to continue. </p>" +
     "</div>";
@@ -132,35 +132,34 @@ function createstim_cogswitch(factors, TYPE) {
         if (mycogswitchfactors[i].condition === "follow") {
             num2 = '';
             dotpos = jsPsych.randomization.sampleWithoutReplacement(top_range, 1);
-            if (num1 % 2 == 0) {correct_response = 'j'} else {correct_response = 'f'}
-
+            if (num1 % 2 == 0) {correct_response = 'h'} else {correct_response = 'g'}
         }
 
         // if condition is distract
         if (mycogswitchfactors[i].condition === "distract") {
-            if (button === 'f') {num2 = jsPsych.randomization.sampleWithoutReplacement([2, 4, 6, 8], 1);} // CORRECT RESPONSE IS ODD, BOTTOM SHOULD BE EVEN
-            if (button === 'j') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 3, 7, 9], 1);} // CORRECT RESPONSE IS EVEN, BOTTOM SHOULD BE ODD
+            if (button === 'g') {num2 = jsPsych.randomization.sampleWithoutReplacement([2, 4, 6, 8], 1);} // CORRECT RESPONSE IS ODD, BOTTOM SHOULD BE EVEN
+            if (button === 'h') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 3, 7, 9], 1);} // CORRECT RESPONSE IS EVEN, BOTTOM SHOULD BE ODD
             dotpos = jsPsych.randomization.sampleWithoutReplacement(top_range, 1);
-            if (num1 % 2 == 0) {correct_response = 'j'} else {correct_response = 'f'}
+            if (num1 % 2 == 0) {correct_response = 'h'} else {correct_response = 'g'}
         }
 
         // if condition is switch
         if (mycogswitchfactors[i].condition === "switch") {
-            if (button === 'd') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4], 1);} // CORRECT RESPONSE IS <5, BOTTOM SHOULD BE >5
-            if (button === 'k') {num2 = jsPsych.randomization.sampleWithoutReplacement([6, 7, 8, 9], 1);} // CORRECT RESPONSE IS >5, BOTTOM SHOULD BE <5
+            if (button === 'b') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4], 1);} // CORRECT RESPONSE IS <5, BOTTOM SHOULD BE >5
+            if (button === 'n') {num2 = jsPsych.randomization.sampleWithoutReplacement([6, 7, 8, 9], 1);} // CORRECT RESPONSE IS >5, BOTTOM SHOULD BE <5
             dotpos = jsPsych.randomization.sampleWithoutReplacement(bottom_range, 1);
-            if (num2 > 5) {correct_response = 'k'} else {correct_response = 'd'}
+            if (num2 > 5) {correct_response = 'n'} else {correct_response = 'b'}
         }
 
         // if condition is ambiguous
         if (mycogswitchfactors[i].condition === "ambiguous") {
-            if (button === 'f') {num2 = jsPsych.randomization.sampleWithoutReplacement([2, 4, 6, 8], 1);} // CORRECT RESPONSE IS ODD, BOTTOM SHOULD BE EVEN
-            if (button === 'j') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 3, 7, 9], 1);} // CORRECT RESPONSE IS EVEN, BOTTOM SHOULD BE ODD
-            if (button === 'd') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4], 1);} // CORRECT RESPONSE IS <5, BOTTOM SHOULD BE >5
-            if (button === 'k') {num2 = jsPsych.randomization.sampleWithoutReplacement([6, 7, 8, 9], 1);} // CORRECT RESPONSE IS >5, BOTTOM SHOULD BE <5
+            if (button === 'g') {num2 = jsPsych.randomization.sampleWithoutReplacement([2, 4, 6, 8], 1);} // CORRECT RESPONSE IS ODD, BOTTOM SHOULD BE EVEN
+            if (button === 'h') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 3, 7, 9], 1);} // CORRECT RESPONSE IS EVEN, BOTTOM SHOULD BE ODD
+            if (button === 'b') {num2 = jsPsych.randomization.sampleWithoutReplacement([1, 2, 3, 4], 1);} // CORRECT RESPONSE IS <5, BOTTOM SHOULD BE >5
+            if (button === 'n') {num2 = jsPsych.randomization.sampleWithoutReplacement([6, 7, 8, 9], 1);} // CORRECT RESPONSE IS >5, BOTTOM SHOULD BE <5
             dotpos = jsPsych.randomization.sampleWithoutReplacement(middle_range, 1);
-            if (num1 % 2 == 0) {correct_response1 = 'j'} else {correct_response1 = 'f'}
-            if (num2 > 5) {correct_response2 = 'k'} else {correct_response2 = 'd'}
+            if (num1 % 2 == 0) {correct_response1 = 'h'} else {correct_response1 = 'g'}
+            if (num2 > 5) {correct_response2 = 'n'} else {correct_response2 = 'b'}
             correct_response = [correct_response1 , correct_response2];
         }
 
@@ -206,7 +205,7 @@ function createseq_cogswitch(factors, TYPE) {
         },
         type: 'html-keyboard-response',
         stimulus: '',
-        choices: ['f', 'j', 'd', 'k'],
+        choices: ['g', 'h', 'b', 'n'],
         data: '',
         trial_duration: SWITCH_STIM_DURATION,
         response_ends_trial: true,
