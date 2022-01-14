@@ -83,7 +83,6 @@ function create_combiset(uniq_comb, N_SWITCHES) {
             counter += 1;
         }
     }
-
     return arrays_new
 }
 

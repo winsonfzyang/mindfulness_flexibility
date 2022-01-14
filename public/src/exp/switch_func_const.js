@@ -10,7 +10,7 @@ const SWITCH_FIXATION = "<div style='font-size: 72px'>+</div>";
 const AFF_SWITCH_FIX = "<div class='aff_fix'>+</div>";
 
 // AFFECTIVE FLEXIBILITY
-const NPRACTTRIALS_AFF = 20; // 40 trials
+const NPRACTTRIALS_AFF = 30; // 40 trials
 const NEXPTRIALS_AFF = 240; // 240 trials
 
 // PRIME AFFECTIVE STROOP
