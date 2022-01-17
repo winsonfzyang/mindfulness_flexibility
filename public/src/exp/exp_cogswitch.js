@@ -17,18 +17,18 @@ combi_set = Array(10).fill([[2, 2, 3], [2, 3, 2], [3, 2, 2]]).flat();
 
 var cogswitch_factors_follow = [{condition: 'follow', dot: 'none'}];
 var cogswitch_factors_crit = [
-    {condition: 'distract', dot: 'top', button: 'f'},
-    {condition: 'distract', dot: 'top', button: 'j'},
-    {condition: 'switch', dot: 'bottom', button: 'd'},
-    {condition: 'switch', dot: 'bottom', button: 'k'},
-    {condition: 'distract', dot: 'top', button: 'f'},
-    {condition: 'distract', dot: 'top', button: 'j'},
-    {condition: 'switch', dot: 'bottom', button: 'd'},
-    {condition: 'switch', dot: 'bottom', button: 'k'},
-    {condition: 'ambiguous', dot: 'middle', button: 'f'},
-    {condition: 'ambiguous', dot: 'middle', button: 'j'},
-    {condition: 'ambiguous', dot: 'middle', button: 'd'},
-    {condition: 'ambiguous', dot: 'middle', button: 'k'}
+    {condition: 'distract', dot: 'top', button: 'g'},
+    {condition: 'distract', dot: 'top', button: 'h'},
+    {condition: 'switch', dot: 'bottom', button: 'b'},
+    {condition: 'switch', dot: 'bottom', button: 'n'},
+    {condition: 'distract', dot: 'top', button: 'g'},
+    {condition: 'distract', dot: 'top', button: 'h'},
+    {condition: 'switch', dot: 'bottom', button: 'b'},
+    {condition: 'switch', dot: 'bottom', button: 'n'},
+    {condition: 'ambiguous', dot: 'middle', button: 'g'},
+    {condition: 'ambiguous', dot: 'middle', button: 'h'},
+    {condition: 'ambiguous', dot: 'middle', button: 'b'},
+    {condition: 'ambiguous', dot: 'middle', button: 'n'}
 ];
 
 var cogswitch_factors = {follow: jsPsych.randomization.repeat(cogswitch_factors_follow, cogswitch_factors_crit.length/PERCENTCRIT), critical: cogswitch_factors_crit};
