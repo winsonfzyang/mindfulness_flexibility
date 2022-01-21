@@ -26,12 +26,11 @@ let mab_instructions = {};
 
 mab_instructions.instructions =
     "<div class='switch_instr'>" +
-    "<p>If the picture is on the top, do the female/male discrimination task. " +
-    "Press <b style='color:#ff0000;'>'F'</b> if the presented face is <b style='color:#ff0000;'>female</b>. " +
-    "Press <b style='color:#0077ff;'>'J'</b> if the presented face is <b style='color:#0077ff;'>male</b>. </p>" +
-    "<p>If the picture is on the bottom, do the angry/happy discrimination task. " +
-    "Press <b style='color:#ff0000;'>'F'</b> if the presented face is <b style='color:#ff0000;'>happy</b>. " +
-    "Press <b style='color:#0077ff;'>'J'</b> if the presented face is <b style='color:#0077ff;'>angry</b>. </p>" +
+    "<p>In this task you will see two pictures appear side by side, followed by a white dot on either side of the picture.</p>" +
+    "<p>Press <b style='color:#ff0000;'>'G'</b> if the dot is on the <b style='color:#ff0000;'>left</b>. " +
+    "<br>Press <b style='color:#0077ff;'>'H'</b> if the dot is on the <b style='color:#0077ff;'>right</b>. " +
+    "</p>" +
+    "<p>On some trials, you will be asked two questions. Press 1, 2, or 3, depending on the options and your response. </p>" +
     "<p>It is important that you respond as quickly and accurately as possible. </p>" +
     "<p>Press SPACEBAR to continue. </p>" +
     "</div>";
