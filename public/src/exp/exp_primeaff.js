@@ -99,6 +99,8 @@ function createstim_prime(TYPE) {
 
     mystroopfactors = [...primeaff_congrfactors, ...primeaff_incongrfactors];
 
+    mystroopfactors = jsPsych.randomization.sampleWithReplacement(mystroopfactors, mystroopfactors.length);
+
     trials = mystroopfactors.map(function(i) {
         return {
             stimulus: i.pic,
@@ -192,7 +194,7 @@ function createseq_prime(TYPE) {
     // If TYPE is practice
     if (TYPE === 'practice') {seq_timeline = [primeaff_fixation, primeaff_prime, primeaff_mask, primeaff_target, feedback];}
     // If TYPE is exp
-    if (TYPE === 'exp') {seq_timeline = [primeaff_fixation, primeaff_target];}
+    if (TYPE === 'exp') {seq_timeline = [primeaff_fixation, primeaff_prime, primeaff_mask, primeaff_target];}
 
     primeaff_procedure = {
         timeline: seq_timeline,
