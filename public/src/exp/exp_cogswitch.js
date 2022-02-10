@@ -99,7 +99,7 @@ function createstim_cogswitch(factors, TYPE) {
     TOTAL_TRIALS = n_set_repeats*10
 
     crit_reps = PERCENTCRIT*TOTAL_TRIALS/NCRITTRIALS;
-    combi_reps = Math.ceil((1-PERCENTCRIT)*TOTAL_TRIALS/10);
+    combi_reps = TOTAL_TRIALS/10;
     stim_combi_set = jsPsych.randomization.sampleWithoutReplacement(combi_set, combi_reps);
     stim_combi_set = stim_combi_set.flat();
     stim_crit_set = jsPsych.randomization.repeat(cogswitch_critical, crit_reps);
